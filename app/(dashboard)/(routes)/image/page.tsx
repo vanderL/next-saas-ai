@@ -5,7 +5,7 @@ import z from 'zod'
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from "react-hook-form";
-import { ImageIcon } from '@radix-ui/react-icons'
+import { ImageIcon, DownloadIcon } from '@radix-ui/react-icons'
 import { useRouter } from 'next/navigation';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -18,6 +18,8 @@ import { Loader } from '@/components/loader';
 import { cn } from '@/lib/utils';
 
 import { amountOptions, formSchema, resolutionOptions } from './constants';
+import { Card, CardFooter } from '@/components/ui/card';
+import Image from 'next/image';
 
 type formSchemaInput = z.infer<typeof formSchema>
 
@@ -171,8 +173,31 @@ export default function ImagePage() {
               />
             </div>
           )}
-          <div>
-            Images will be rendered here
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8'>
+            {images.map((src) => (
+              <Card
+                key={src}
+                className='rounded-lg overflow-hidden'
+              >
+                <div className="relative aspect-square">
+                  <Image 
+                    fill
+                    alt="image"
+                    src={src}
+                  />
+                  <CardFooter className='p-2'>
+                    <Button 
+                      variant={'secondary'} 
+                      className='w-full'
+                      onClick={() => window.open(src)}
+                    >
+                      <DownloadIcon className='h-4 w-4 mr-2'/>
+                      Download
+                    </Button>
+                  </CardFooter>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
 

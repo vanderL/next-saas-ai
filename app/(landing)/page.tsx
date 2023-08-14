@@ -6,7 +6,7 @@ export default function LandingPage() {
     <div>
       Landing Page (Unprotected)
       <div>
-        <Link href={"/sing-in"}>
+        <Link href={"/sign-in"}>
           <Button>
             Login
           </Button>
